@@ -29,14 +29,13 @@ célula — que é o que este script gera. **Não voltar a usar o atalho.**
 O layout está calibrado para caber numa única página A4 no Google Docs
 (margens por omissão de 2,54 cm, ou seja ~451 pt úteis):
 
-- fonte 8 pt Arial em `<span>`, `padding: 1pt 3pt`, `line-height: 1.05`;
+- corpo a 9 pt e cabeçalhos a 8 pt, sempre em `<span>`, `padding: 4pt`,
+  `line-height: 1.05` — as linhas ficam altas o suficiente para escrever à mão;
 - data na mesma linha do título, para poupar altura;
-- `@page { margin: 1,2 cm }` para estreitar as margens da página;
+- 22 linhas de movimento (a skill exige >= 17), para ocupar a altura da página;
 - `table-layout: fixed` com larguras explícitas só na primeira linha
-  (soma 445 pt), o que evita quebras de linha em `InvoicePayment` e
-  `140716/OS2014` e mantém o HTML pequeno. A soma fica deliberadamente dentro
-  dos 451 pt úteis das margens POR OMISSÃO do Docs, para a tabela não
-  transbordar se o `@page` acima for ignorado no import;
+  (soma 448 pt), o que evita quebras de linha em `InvoicePayment` e
+  `140716/OS2014` e mantém o HTML pequeno;
 - 17 linhas de movimento no total (preenchidas + livres).
 
 Ao alterar o desenho, revalidar a contagem de páginas antes de publicar:
@@ -48,14 +47,9 @@ chromium --headless --no-pdf-header-footer --print-to-pdf=out.pdf preview.html
 python3 -c "import fitz; print(fitz.open('out.pdf').page_count)"   # tem de ser 1
 ```
 
-Validar em três cenários, porque não é possível renderizar o Doc a partir daqui:
-
-1. `@page{margin:1.2cm}` — o pedido;
-2. `@page{margin:2.54cm}` — se o import ignorar as margens;
-3. o mesmo, com `td span{font-size:11pt !important}` — se o import voltar a
-   ignorar o tamanho da letra.
-
-Nos três tem de dar 1 página.
+Validar sempre com margens de **2,54 cm** — confirmado em produção que o
+importador do Docs **ignora `@page`**, por isso as margens da página não são
+controláveis a partir do HTML e a largura útil é 451 pt. Tem de dar 1 página.
 
 ## Regras da folha que este script respeita
 
