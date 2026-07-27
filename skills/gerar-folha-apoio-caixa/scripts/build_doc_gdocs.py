@@ -18,7 +18,8 @@ PAD = "4pt 4pt"   # espaço para escrever à mão nas linhas livres
 # ficam nos 2,54 cm por omissão e a largura útil é 451pt. As colunas somam 448.
 W = [78, 50, 56, 76, 36, 56, 96]
 HEADERS = ["DOCUMENTO", "FOLIO", "VALOR", "TIPO", "HORA", "DIA", "MEIO DE PAGAMENTO"]
-LINHAS_MIN = 22   # ocupa a altura da página; a skill exige >= 17
+LINHAS_MIN = 18   # deixa folga de página; a skill exige >= 17
+MAX_1_PAGINA = 23 # acima disto a tabela transborda para uma 2.ª página
 
 
 def eur(v):
@@ -121,6 +122,11 @@ def build(date_br, movs, prov=False):
 if __name__ == "__main__":
     data = json.load(open(sys.argv[1], encoding="utf-8"))
     day = data["days"][0]
+    if len(day["movements"]) > MAX_1_PAGINA:
+        print(f"AVISO: {len(day['movements'])} movimentos excedem os "
+              f"{MAX_1_PAGINA} que cabem numa página A4. A folha vai ocupar "
+              f"duas páginas — confirmar com o utilizador antes de publicar.",
+              file=sys.stderr)
     d = day["date"].split("-")
     movs = [(m["document"], m["amount"]) for m in day["movements"]]
     html = build(f"{d[2]}/{d[1]}/{d[0]}", movs, day.get("provisional", False))

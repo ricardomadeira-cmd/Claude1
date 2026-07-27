@@ -49,7 +49,8 @@ que só o utilizador pode remover — por isso, validar antes de publicar.
 - larguras fixas somando 448 pt, definidas só na primeira linha
   (`table-layout: fixed`);
 - data na mesma linha do título;
-- 22 linhas de movimento, para ocupar a altura da página;
+- 18 linhas de movimento (`LINHAS_MIN`), que ocupam bem a página deixando
+  folga; a skill exige um mínimo de 17;
 - tabela de totais e quadro RESUMO à largura toda.
 
 Mantêm-se todas as regras da folha: português de Portugal, `FOLIO` sem acento,
@@ -67,3 +68,14 @@ python3 -c "import fitz; print(fitz.open('out.pdf').page_count)"   # tem de ser 
 ```
 
 Renderizar a página para PNG e inspecionar visualmente antes de publicar.
+
+## Limite de uma página
+
+Medido com este desenho: cabem **23 movimentos preenchidos** numa página A4.
+A partir de 24 a tabela passa para uma segunda página. O gerador imprime um
+aviso em `stderr` quando esse limite é ultrapassado — nesse caso, parar e
+confirmar com o utilizador antes de publicar, em vez de publicar duas páginas
+em silêncio.
+
+As 18 linhas livres são só o mínimo: num dia com 6 movimentos a tabela tem
+18 linhas no total, e num dia com 20 movimentos tem 20.
