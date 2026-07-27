@@ -11,8 +11,12 @@ C = {
     "texto": "#1F2937",
     "vermelho": "#D7191C",
 }
-# larguras em pt: soma 445 (< 451pt úteis em A4 com margens de 2,54 cm)
-W = [72, 46, 52, 74, 40, 56, 105]
+PT = 8            # corpo da tabela
+MARGEM_CM = 1.2   # margens da página, pedidas via @page no import do Docs
+# Larguras em pt: soma 445. Deliberadamente dentro dos 451pt úteis das margens
+# POR OMISSÃO do Docs (2,54 cm), para a tabela nunca transbordar caso o @page
+# acima seja ignorado no import. Se for respeitado, sobra margem à direita.
+W = [76, 44, 54, 78, 36, 58, 99]
 HEADERS = ["DOCUMENTO", "FOLIO", "VALOR", "TIPO", "HORA", "DIA", "MEIO DE PAGAMENTO"]
 LINHAS_MIN = 17
 
@@ -24,18 +28,21 @@ def eur(v):
 
 def cel(txt, w, fundo=None, align="left", bold=False, cor=None):
     # table-layout:fixed => a largura só é necessária na 1.ª linha (w=None nas restantes)
-    st = ([f"width:{w}pt"] if w else []) + ["padding:2pt 3pt"]
+    st = ([f"width:{w}pt"] if w else []) + ["padding:1pt 3pt"]
     if align != "left":
         st.append(f"text-align:{align}")
     if fundo:
         st.append(f"background-color:{fundo}")
-    p = ["margin:0", "font:8pt Arial,sans-serif", "line-height:1.05"]
+    # O importador do Google Docs ignora o atalho `font:` e cai nos 11pt por
+    # omissão; só respeita font-size/font-family declarados num <span>.
+    sp = [f"font-size:{PT}pt", "font-family:Arial,sans-serif"]
     if bold:
-        p.append("font-weight:bold")
+        sp.append("font-weight:bold")
     if cor:
-        p.append(f"color:{cor}")
+        sp.append(f"color:{cor}")
     return (f'<td style="{";".join(st)}">'
-            f'<p style="{";".join(p)}">{txt}</p></td>')
+            f'<p style="margin:0;line-height:1.05">'
+            f'<span style="{";".join(sp)}">{txt}</span></p></td>')
 
 
 def build(date_br, movs, prov=False):
@@ -43,14 +50,13 @@ def build(date_br, movs, prov=False):
     td = sum(m[1] for m in movs if m[1] < 0)
     out = []
     a = out.append
-    a(f'<p style="margin:0;padding:5pt;background-color:{C["azul"]};text-align:center">'
-      f'<span style="font-family:Arial,sans-serif;font-size:16pt;font-weight:bold;color:#FFFFFF">'
-      f'FOLHA DE APOIO &Agrave; CAIXA</span></p>')
+    a(f'<style>@page{{size:A4;margin:{MARGEM_CM}cm}}</style>')
+    # data na mesma linha do título, para poupar uma linha de altura
     dt = date_br + (" &middot; PROVIS&Oacute;RIA - DIA EM CURSO" if prov else "")
-    a(f'<p style="margin:0;padding:3pt;background-color:{C["manual"]};text-align:center">'
-      f'<span style="font-family:Arial,sans-serif;font-size:11pt;font-weight:bold;color:{C["azul"]}">'
-      f'{dt}</span></p>')
-    a(f'<p style="margin:4pt 0 3pt 0">'
+    a(f'<p style="margin:0;padding:4pt;background-color:{C["azul"]};text-align:center">'
+      f'<span style="font-family:Arial,sans-serif;font-size:14pt;font-weight:bold;color:#FFFFFF">'
+      f'FOLHA DE APOIO &Agrave; CAIXA &nbsp;&middot;&nbsp; {dt}</span></p>')
+    a(f'<p style="margin:3pt 0 2pt 0">'
       f'<span style="font-family:Arial,sans-serif;font-size:7.5pt;color:{C["cab"]}">'
       f'Preencher manualmente os campos assinalados.</span></p>')
 
@@ -85,19 +91,19 @@ def build(date_br, movs, prov=False):
           + "</tr>")
     a("</table>")
 
-    a('<p style="margin:5pt 0 0 0;font-size:2pt">&nbsp;</p>')
+    a('<p style="margin:4pt 0 0 0;font-size:2pt">&nbsp;</p>')
     a(f'<table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;'
-      f'border-color:{C["borda"]};table-layout:fixed;width:244pt">')
+      f'border-color:{C["borda"]};table-layout:fixed;width:250pt">')
     for lbl, v, cor in (("TOTAL PAGAMENTOS", tp, None),
                         ("TOTAL DEVOLU&Ccedil;&Otilde;ES", td, C["vermelho"]),
                         ("TOTAL L&Iacute;QUIDO", tp + td, None)):
-        a("<tr>" + cel(lbl, 152, C["dia"], "right", True)
+        a("<tr>" + cel(lbl, 160, C["dia"], "right", True)
           + cel(eur(v), None, C["dia"], "right", True, cor) + "</tr>")
     a("</table>")
 
-    a('<p style="margin:5pt 0 0 0;font-size:2pt">&nbsp;</p>')
+    a('<p style="margin:4pt 0 0 0;font-size:2pt">&nbsp;</p>')
     a(f'<p style="margin:0;padding:3pt;background-color:{C["azul"]};text-align:center;width:{sum(W)}pt">'
-      f'<span style="font-family:Arial,sans-serif;font-size:11pt;font-weight:bold;color:#FFFFFF">'
+      f'<span style="font-family:Arial,sans-serif;font-size:10pt;font-weight:bold;color:#FFFFFF">'
       f'RESUMO POR MEIO DE PAGAMENTO</span></p>')
     a(f'<table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;'
       f'border-color:{C["borda"]};table-layout:fixed;width:{sum(W)}pt">')
