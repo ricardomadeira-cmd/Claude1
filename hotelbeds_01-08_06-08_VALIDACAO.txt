@@ -1,0 +1,74 @@
+================================================================================
+HOTELBEDS - FICHEIRO DE PAGAMENTOS - RELATORIO DE VALIDACAO
+================================================================================
+Gerado em: 07-08-2026 15:26:10
+PERIODO DE EMISSAO: 01-08-2026 a 06-08-2026
+
+RESUMO
+  Faturas Hotelbeds encontradas no intervalo: 15
+  Faturas exportadas: 15
+  Linhas de alojamento (uma por noite/quarto): 26
+  Total bruto c/IVA exportado: EUR 3.084,78
+  Excluidas por ja estarem 'uploaded': 0 dentro deste intervalo
+  Bloqueadas por estado 'prepared': 0
+  Nao-Hotelbeds excluidas do intervalo (Consumidor Final): 5
+
+ALTERACAO DE AMBITO FACE AO LOTE ANTERIOR
+  O lote anterior cobria 29-07 a 06-08 (21 faturas, EUR 3.914,72). O utilizador
+  confirmou que as faturas de 29, 30 e 31 de julho ja tinham sido submetidas no
+  portal. Foram por isso registadas como 'uploaded' e retiradas deste lote:
+    140910  31-07-2026  EUR 186,96
+    140909  31-07-2026  EUR  96,52
+    140874  30-07-2026  EUR 172,00
+    140873  30-07-2026  EUR 101,60
+    140872  30-07-2026  EUR  82,84
+    140810  29-07-2026  EUR 190,02
+  Subtotal retirado: EUR 829,94   |   3.914,72 - 829,94 = 3.084,78  [confere]
+
+NOTA SOBRE O INICIO DO INTERVALO
+  Nao existem faturas Hotelbeds emitidas a 01-08-2026. A mais antiga deste
+  lote e de 02-08-2026. Ha, no entanto, linhas com data de servico de 31-07
+  (faturas 141032, 141031 e 141030), porque o filtro incide sobre a data de
+  emissao e nao sobre a data da noite.
+
+FORMATO DO CSV
+  Sem cabecalho | 16 colunas | separador ';' | decimal ',' | datas dd-mm-yyyy
+  UTF-8 SEM BOM | valores com IVA incluido
+
+VALIDACOES
+  [OK] 26/26 linhas com 16 colunas
+  [OK] Ficheiro gravado sem BOM (verificado ao nivel dos bytes)
+  [OK] sum(Line total) == Invoice total nas 15 faturas (verificado apos escrita)
+  [OK] Invoice type = F em todas (sem notas de credito no periodo)
+  [OK] N. to rectify vazio em todas
+  [OK] Costumer Name = nome do hospede das observacoes, nao "Hotelbeds"
+  [OK] Booking N. extraido das observacoes InvoiceXpress (nenhum inventado)
+  [OK] Apenas linhas "Quartos - ..." exportadas
+  [OK] Services Description = Accommodation | N. Days/Nights = 1 | Quantity = 1
+  [OK] Tax = 6 | Tax Type = VAT | Currency = EUR
+
+REGRA DE DATAS HOTELBEDS (erro 110004)
+  Check-out = Service Date + N. Days/Nights; exige Invoice date >= check-out
+  mais tardio. Verificadas as 15 faturas: nenhuma exigiu correcao.
+
+ARREDONDAMENTOS (bruto = liquido InvoiceXpress x 1,06)
+  141252: ultima linha +0,01 (96,52 -> 96,53) para fechar em 193,05
+  141030: ultima linha -0,01 (97,29 -> 97,28) para fechar em 194,57
+  Restantes 13 faturas fecharam exatamente sem ajuste.
+
+ESTATISTICAS POR DATA DE EMISSAO
+  02-08-2026: 7 fatura(s) - EUR 1101,17
+  03-08-2026: 1 fatura(s) - EUR 186,96
+  04-08-2026: 1 fatura(s) - EUR 202,16
+  05-08-2026: 1 fatura(s) - EUR 82,84
+  06-08-2026: 5 fatura(s) - EUR 1511,65
+  TOTAL: EUR 3.084,78
+
+FICHEIRO A CARREGAR
+  hotelbeds_01-08_06-08_COM_IVA.csv
+
+ESTADO NO REGISTO
+  As 15 faturas deste lote estao como 'prepared'. So passar a 'uploaded' apos
+  confirmacao do portal. Se rejeitado, registar 'rejected' com a causa.
+  As 6 faturas de julho ficam como 'uploaded' por confirmacao do utilizador.
+================================================================================
