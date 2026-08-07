@@ -1,0 +1,1 @@
+event_timestamp;invoice_number;invoicexpress_id;booking_number;original_invoice_date;upload_invoice_date;gross_total_eur;period_from;period_to;batch_filename;status;notes
