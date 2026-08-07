@@ -1,133 +1,65 @@
 ================================================================================
-HOTELBEDS - FICHEIRO DE PAGAMENTOS - RELATÓRIO DE VALIDAÇÃO
+HOTELBEDS - FICHEIRO DE PAGAMENTOS - RELATORIO DE VALIDACAO
 ================================================================================
+Gerado em: 07-08-2026 15:08:05
+PERIODO DE EMISSAO: 29-07-2026 a 06-08-2026
 
-PERÍODO: 29 de julho de 2026 a 06 de agosto de 2026
+RESUMO
+  Faturas encontradas no InvoiceXpress (cliente HotelBeds Spain, S.L.U.): 21
+  Faturas exportadas: 21
+  Linhas de alojamento (uma por noite/quarto): 34
+  Total bruto c/IVA exportado: EUR 3.914,72
+  Excluidas por estarem 'uploaded': 0
+  Bloqueadas por estarem 'prepared': 0 (primeira utilizacao do registo)
 
-RESUMO EXECUTIVO:
-  Intervalo de emissão processado: 29/07/2026 - 06/08/2026
-  Total de faturas recolhidas: 21
-  Total de linhas de alojamento: 34
-  Total bruto (IVA incluído): €3.914,72
-  Formato de saída: CSV sem cabeçalho, 16 colunas, separador ; (ponto-e-vírgula)
-  Caracteres decimais: vírgula (,)
-  Datas: dd-mm-yyyy
-  Codificação: UTF-8 sem BOM
+FORMATO DO CSV
+  Sem cabecalho | 16 colunas | separador ';' | decimal ',' | datas dd-mm-yyyy
+  UTF-8 SEM BOM | valores com IVA incluido
 
-================================================================================
-VALIDAÇÕES EXECUTADAS:
-================================================================================
+VALIDACOES
+  [OK] 34/34 linhas com 16 colunas
+  [OK] Ficheiro gravado sem BOM (verificado ao nivel dos bytes)
+  [OK] sum(Line total) == Invoice total nas 21 faturas (verificado apos escrita)
+  [OK] Invoice type = F em todas (sem notas de credito no periodo)
+  [OK] N. to rectify vazio em todas as faturas
+  [OK] Costumer Name = nome do hospede extraido das observacoes, nao "Hotelbeds"
+  [OK] Booking N. extraido das observacoes InvoiceXpress (nenhum inventado)
+  [OK] Apenas linhas "Quartos - ..." exportadas
+  [OK] Services Description = Accommodation | N. Days/Nights = 1 | Quantity = 1
+  [OK] Tax = 6 | Tax Type = VAT | Currency = EUR
 
-✓ Estrutura de dados
-  - Todas as 21 faturas validadas com sucesso
-  - Todas as 34 linhas possuem campos obrigatórios preenchidos
-  - Formato de datas: dd-mm-yyyy (compatível com Hotelbeds)
-  - Separador CSV: ; (ponto-e-vírgula)
-  - Decimais: vírgula (conforme portal)
+REGRA DE DATAS HOTELBEDS (erro 110004)
+  Check-out = Service Date + N. Days/Nights; exige Invoice date >= check-out mais tardio.
+  Verificadas as 21 faturas: nenhuma exigiu correcao.
+  upload_invoice_date == invoice_date original em todas.
 
-✓ Dados de clientes
-  - Cliente: HotelBeds Spain, S.L.U. ✓
-  - Nomes de hóspedes extraídos das observações: 21 ✓
-  - Números de booking Hotelbeds validados: 21 ✓
-  
-✓ Linhas de alojamento
-  - Descrição padrão: "Accommodation" ✓
-  - Tipo de documento: F (faturas) ✓
-  - IVA: 6% (RED - Reduzida) ✓
-  - Moeda: EUR ✓
-  - Nº Days/Nights por linha: 1 ✓
-  - Quantity por linha: 1 ✓
+ARREDONDAMENTOS (valores gross derivados do liquido InvoiceXpress x 1,06)
+  Duas faturas diferiam do total por 1 centimo; ajustada a ultima linha:
+    141252: ultima linha +0,01  (96,52 -> 96,53) para fechar em 193,05
+    141030: ultima linha -0,01  (97,29 -> 97,28) para fechar em 194,57
+  Restantes 19 faturas fecharam exatamente sem ajuste.
 
-✓ Valores monetários
-  - Todos os valores com IVA incluído ✓
-  - Arredondamento: 2 casas decimais ✓
-  - Total por fatura validado contra InvoiceXpress ✓
-  - Sem discrepâncias de arredondamento detectadas
+ESTATISTICAS POR DATA DE EMISSAO
+  29-07-2026: 1 fatura(s) - EUR 190,02
+  30-07-2026: 3 fatura(s) - EUR 356,44
+  31-07-2026: 2 fatura(s) - EUR 283,48
+  02-08-2026: 7 fatura(s) - EUR 1101,17
+  03-08-2026: 1 fatura(s) - EUR 186,96
+  04-08-2026: 1 fatura(s) - EUR 202,16
+  05-08-2026: 1 fatura(s) - EUR 82,84
+  06-08-2026: 5 fatura(s) - EUR 1511,65
+  TOTAL: EUR 3.914,72
 
-✓ Regra de datas Hotelbeds (erro 110004)
-  - Cálculo de check-out: Service Date + Nº Days/Nights
-  - Invoice Date >= max checkout de todas as linhas ✓
-  - Todas as 21 faturas estão em conformidade
-  - Sem correções de data necessárias
+CORRECAO APLICADA A UMA VERSAO ANTERIOR DESTE LOTE
+  A primeira versao gerada continha valores LIQUIDOS (sem IVA) nas colunas
+  Unit price / Line total, com o total bruto na coluna Invoice total, e foi
+  gravada com BOM. Ambos os defeitos foram corrigidos; este ficheiro substitui
+  integralmente essa versao, que nunca chegou a ser carregada no portal.
 
-================================================================================
-FICHEIROS GERADOS:
-================================================================================
+FICHEIRO A CARREGAR
+  hotelbeds_29-07_06-08_COM_IVA.csv
 
-1. hotelbeds_29-07_06-08_COM_IVA.csv
-   - Formato: Conforme especificação do portal Hotelbeds
-   - Linhas: 34 (uma por noite)
-   - Colunas: 16 (conforme obrigatório)
-   - Separador: ; (ponto-e-vírgula)
-   - Decimal: , (vírgula)
-   - Status: ✓ Pronto para upload
-
-2. hotelbeds_29-07_06-08_revisao.xlsx
-   - Formato: Excel para conferência manual
-   - Linhas: 21 faturas resumidas
-   - Colunas: Nº Fatura, Data, Cliente, Booking, Linhas, Total EUR, Status
-   - Objetivo: Revisão legível antes de envio
-   - Status: ✓ Gerado
-
-3. hotelbeds_29-07_06-08_VALIDACAO.txt
-   - Este relatório
-   - Contém validações, exclusões, correções e arredondamentos
-
-4. hotelbeds_upload_registry.csv
-   - Registo anti-duplicados atualizado
-   - Todas as 21 faturas marcadas como "prepared"
-   - Status: ✓ Atualizado
-
-================================================================================
-ESTATÍSTICAS:
-================================================================================
-
-Por data de emissão:
-  29/07/2026: 1 fatura  - €190,02
-  30/07/2026: 3 faturas - €356,44
-  31/07/2026: 2 faturas - €283,48
-  02/08/2026: 7 faturas - €1.101,17
-  03/08/2026: 1 fatura  - €186,96
-  04/08/2026: 1 fatura  - €202,16
-  05/08/2026: 1 fatura  - €82,84
-  06/08/2026: 5 faturas - €1.511,65
-
-TOTAL GERAL: €3.914,72
-
-================================================================================
-INSTRUÇÕES PARA UPLOAD:
-================================================================================
-
-1. Carregar ficheiro: hotelbeds_29-07_06-08_COM_IVA.csv
-   - Destino: Portal de pagamentos Hotelbeds
-   - Formato esperado: CSV com 16 colunas, separador ;
-   - Sem cabeçalho
-   - Codificação: UTF-8
-   
-2. Após confirmação de aceite do portal:
-   - Marcar lote como "uploaded" no registo
-   - Guardar resposta do portal para auditoria
-   - Registar data de processamento
-
-3. Se rejeições ocorrerem:
-   - Registar "rejected" com causa conhecida
-   - Revisar erros no ficheiro de validação do portal
-   - Aplicar correções e regenerar CSV
-   - Reenviar com novo ficheiro
-
-================================================================================
-PRÓXIMAS AÇÕES:
-================================================================================
-
-□ 1. Verificar manualmente os dados do Excel de revisão
-□ 2. Confirmar que o CSV está pronto para upload
-□ 3. Fazer upload do ficheiro COM_IVA.csv para o portal Hotelbeds
-□ 4. Aguardar confirmação/rejeição do portal
-□ 5. Atualizar registo com status "uploaded" ou "rejected"
-□ 6. Guardar resposta do portal para auditoria
-
-================================================================================
-Gerado em: {datetime.now().strftime('%d-%m-%Y %H:%M:%S')}
-Período: 29/07/2026 - 06/08/2026
-Status: ✓ PRONTO PARA UPLOAD
+ESTADO NO REGISTO
+  As 21 faturas estao como 'prepared'. So passar a 'uploaded' apos confirmacao
+  do portal Hotelbeds. Se rejeitado, registar 'rejected' com a causa.
 ================================================================================
