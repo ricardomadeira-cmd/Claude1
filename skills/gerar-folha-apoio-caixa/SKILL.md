@@ -64,7 +64,9 @@ Ler integralmente antes de qualquer chamada:
 - [references/output-and-validation.md](references/output-and-validation.md)
   para composição, formatação e controlos finais;
 - [references/google-drive-output.md](references/google-drive-output.md)
-  para a publicação da folha no Google Drive.
+  para a publicação da folha no Google Drive;
+- [references/saft-cross-check.md](references/saft-cross-check.md)
+  para a conferência cruzada com o SAF-T, feita depois de a folha estar entregue.
 
 ### 2. Confirmar o âmbito
 
