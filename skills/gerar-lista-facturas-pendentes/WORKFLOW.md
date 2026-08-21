@@ -188,27 +188,46 @@ O PDF conterá uma tabela formatada com:
 
 ## Filtragem por Tipo de Item
 
-A skill filtra **exclusivamente** facturas que mencionam especificamente:
+A skill filtra **exclusivamente** facturas cujo ProductCode (SAFT) ou `type` (InvoiceExpress)
+seja literalmente um destes valores:
 
 ### Stay (Estadia)
-- Facturas com items `type="stay"`
-- Propriedades: `check_in`, `check_out`
-- Exemplo: Estadia de 15-18 Julho
+- SAFT: `ProductCode = "Stay"` (valor exacto)
+- Descrição associada: intervalo de datas, ex. "2025-04-13 - 2025-04-14"
 
-### Consumption (Consumo)
-- Facturas com items `type="consumption"`
-- Propriedades: quantidade, preço unitário
-- Exemplo: Mini bar, serviços extras
+### ConsumptionItem (Consumo)
+- SAFT: `ProductCode = "ConsumptionItem"` (valor exacto)
+- Descrição associada: ex. "Taxa Turistica Coimbra", "Bar", etc.
 
-### Validação de Filtros
+⚠️ Outros ProductCodes (ex. "Quartos", "Bar", "Suplemento") **não** contam para
+este filtro, mesmo que estejam relacionados com a estadia — só "Stay" e
+"ConsumptionItem" literais são considerados.
 
-**Resultado da filtragem:**
-- Apenas STAY: 823 facturas (€276,639.40)
-- Apenas CONSUMPTION: 688 facturas (€4,355.00)
-- STAY + CONSUMPTION: 1.425 facturas (€428,959.48)
-- **Total filtrado: 2.936 facturas (€709,953.88)**
+### ⚠️ Estado de Pagamento: SAFT vs InvoiceExpress
 
-✅ 100% das facturas incluídas têm stay E/OU consumption específicos
+O campo de estado no SAFT (`InvoiceStatus`, ex. valor "N") é um **estado do
+documento** (normal / não anulado) — **não indica se a factura está paga**.
+Confirmámos isto diretamente: uma factura com `InvoiceStatus="N"` no SAFT
+estava com `status="settled"` (paga) no InvoiceExpress.
+
+Por isso, o estado de "em dívida" só pode ser determinado consultando o
+InvoiceExpress (`status="sent"` = não paga, `status="settled"` = paga).
+
+### Validação de Filtros (Análise 2025-2026)
+
+Cruzamento verificado entre InvoiceExpress (`status="sent"` real) e SAFT
+(ProductCode exacto), para o período 2025-01-01 a 2026-08-21:
+
+- Facturas com `status="sent"` no IE nesse período: 585
+- Destas, com ProductCode Stay e/ou ConsumptionItem no SAFT: **352**
+  - Apenas Stay: 158 facturas (€32.069,18)
+  - Apenas ConsumptionItem: 40 facturas (€146,00)
+  - Stay + ConsumptionItem: 154 facturas (€51.445,60)
+- **Total verificado em dívida: 352 facturas (€83.660,78)**
+- Destas, >90 dias em atraso: 62 facturas (€11.056,41)
+
+✅ 100% das facturas incluídas foram confirmadas em duas fontes: ProductCode
+exacto no SAFT + status "sent" real no InvoiceExpress.
 
 ## Filtragem Avançada
 
