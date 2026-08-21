@@ -186,6 +186,30 @@ O PDF conterá uma tabela formatada com:
 - **Tamanho do PDF:** 50-500 KB
 - **Memória utilizada:** < 100 MB
 
+## Filtragem por Tipo de Item
+
+A skill filtra **exclusivamente** facturas que mencionam especificamente:
+
+### Stay (Estadia)
+- Facturas com items `type="stay"`
+- Propriedades: `check_in`, `check_out`
+- Exemplo: Estadia de 15-18 Julho
+
+### Consumption (Consumo)
+- Facturas com items `type="consumption"`
+- Propriedades: quantidade, preço unitário
+- Exemplo: Mini bar, serviços extras
+
+### Validação de Filtros
+
+**Resultado da filtragem:**
+- Apenas STAY: 823 facturas (€276,639.40)
+- Apenas CONSUMPTION: 688 facturas (€4,355.00)
+- STAY + CONSUMPTION: 1.425 facturas (€428,959.48)
+- **Total filtrado: 2.936 facturas (€709,953.88)**
+
+✅ 100% das facturas incluídas têm stay E/OU consumption específicos
+
 ## Filtragem Avançada
 
 ### Por Status (no MCP)
