@@ -8,7 +8,14 @@
       "mcp__Google_Drive__search_files",
       "mcp__Google_Drive__read_file_content",
       "mcp__Google_Drive__get_file_metadata",
-      "mcp__Google_Drive__create_file"
+      "mcp__Google_Drive__create_file",
+      "Bash(curl -sS -o *)",
+      "Bash(unzip -o *)",
+      "Bash(python3 *)",
+      "Bash(git fetch *)",
+      "Bash(git checkout *)",
+      "Bash(cp -r *)",
+      "Bash(mkdir -p *)"
     ]
   }
 }
