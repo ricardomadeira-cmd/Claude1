@@ -102,3 +102,22 @@ event_timestamp;invoice_number;invoicexpress_id;booking_number;original_invoice_
 2026-08-31T16:57:11;142078;267509502;59-5973422;2026-08-19;2026-08-19;265.60;2026-08-18;2026-08-31;hotelbeds_18-08_31-08_COM_IVA.csv;prepared;
 2026-08-31T16:57:11;142077;267509474;59-5991770;2026-08-19;2026-08-19;96.52;2026-08-18;2026-08-31;hotelbeds_18-08_31-08_COM_IVA.csv;prepared;
 2026-08-31T16:57:11;142030;267387537;59-5970070;2026-08-18;;253.85;2026-08-18;2026-08-31;(retida, fora do lote);held;"Campo Customer das observacoes diz 'HotelBeds Spain, S.L' e nao o hospede; falta o nome do titular da reserva"
+2026-08-31T17:08:52;142030;267387537;59-5970070;2026-08-18;2026-08-18;253.85;2026-08-18;2026-08-31;hotelbeds_18-08_31-08_COM_IVA.csv;prepared;"Hospede HEEKYUNG CHOI confirmado pelo utilizador; ajuste arredondamento 0,01"
+2026-08-31T17:08:52;141669;266716604;59-5982635;2026-08-12;2026-08-12;174.82;2026-08-07;2026-08-13;hotelbeds_07-08_13-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141598;266606267;59-5860555;2026-08-11;2026-08-11;235.19;2026-08-07;2026-08-13;hotelbeds_07-08_13-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141536;266497093;59-5858058;2026-08-10;2026-08-10;101.60;2026-08-07;2026-08-13;hotelbeds_07-08_13-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141475;266414956;59-5965164;2026-08-09;2026-08-09;119.32;2026-08-07;2026-08-13;hotelbeds_07-08_13-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141413;266315317;59-5978990;2026-08-08;2026-08-08;86.64;2026-08-07;2026-08-13;hotelbeds_07-08_13-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141412;266315305;59-5979797;2026-08-08;2026-08-08;86.64;2026-08-07;2026-08-13;hotelbeds_07-08_13-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141411;266315300;59-5898171;2026-08-08;2026-08-08;416.50;2026-08-07;2026-08-13;hotelbeds_07-08_13-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141410;266315277;59-5821379;2026-08-08;2026-08-08;101.60;2026-08-07;2026-08-13;hotelbeds_07-08_13-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141330;266200293;59-5966630;2026-08-07;2026-08-07;109.60;2026-08-07;2026-08-13;hotelbeds_07-08_13-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141329;266200291;59-5857696;2026-08-07;2026-08-07;101.60;2026-08-07;2026-08-13;hotelbeds_07-08_13-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141328;266200289;59-5857683;2026-08-07;2026-08-07;101.60;2026-08-07;2026-08-13;hotelbeds_07-08_13-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141983;267267087;59-5731052;2026-08-17;2026-08-17;101.60;2026-08-14;2026-08-17;hotelbeds_14-08_17-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141919;267189845;59-5990233;2026-08-16;2026-08-16;82.84;2026-08-14;2026-08-17;hotelbeds_14-08_17-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141918;267189837;59-5929274;2026-08-16;2026-08-16;342.77;2026-08-14;2026-08-17;hotelbeds_14-08_17-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141917;267189803;59-5784848;2026-08-16;2026-08-16;221.92;2026-08-14;2026-08-17;hotelbeds_14-08_17-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141916;267189765;59-5784849;2026-08-16;2026-08-16;221.92;2026-08-14;2026-08-17;hotelbeds_14-08_17-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141804;266960278;59-5897671;2026-08-14;2026-08-14;111.72;2026-08-14;2026-08-17;hotelbeds_14-08_17-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal
+2026-08-31T17:08:52;141803;266960270;59-5956261;2026-08-14;2026-08-14;117.60;2026-08-14;2026-08-17;hotelbeds_14-08_17-08_COM_IVA.csv;uploaded;Confirmado pelo utilizador: carregado no portal

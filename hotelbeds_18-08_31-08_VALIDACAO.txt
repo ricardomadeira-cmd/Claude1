@@ -1,61 +1,45 @@
 ================================================================================
 HOTELBEDS - FICHEIRO DE PAGAMENTOS - RELATORIO DE VALIDACAO
 ================================================================================
-Gerado em: 31-08-2026 16:57:11
+Gerado em: 31-08-2026 17:08:52
 PERIODO DE EMISSAO: 18-08-2026 a 31-08-2026
 
 RESUMO
   Faturas Hotelbeds encontradas no intervalo: 28
-  Faturas exportadas: 27
-  FATURAS RETIDAS PARA REVISAO: 1  (ver seccao proprio abaixo)
-  Linhas de alojamento (uma por noite/quarto): 41
-  Total bruto c/IVA exportado: EUR 4.720,19
-  Total retido, por exportar: EUR 253,85
+  Faturas exportadas: 28
+  Linhas de alojamento (uma por noite/quarto): 43
+  Total bruto c/IVA exportado: EUR 4.974,04
   Excluidas por ja estarem 'uploaded': 0
-  Bloqueadas por estado 'prepared': 0 (nenhuma colisao com lotes anteriores)
+  Bloqueadas por estado 'prepared': 0
   Nao-Hotelbeds excluidas do intervalo (Consumidor Final): 7
 
->>> FATURA RETIDA - REQUER DECISAO SUA <<<
-  Fatura 142030, de 18-08-2026, EUR 253,85, booking 59-5970070,
-  2 noites no quarto 304 (16 e 17-08).
-
-  Nas observacoes do InvoiceXpress o campo Customer diz literalmente
-  "HotelBeds Spain, S.L" em vez do nome do hospede. Todas as outras 27
-  faturas trazem ali o nome do titular da reserva.
-
-  A regra do procedimento e explicita: o campo Costumer Name do CSV leva o
-  nome do hospede e nunca "Hotelbeds"; se o hospede nao for identificavel
-  com seguranca, parar e pedir revisao. Foi o que se fez. Nao foi inventado
-  um nome nem foi usado "Hotelbeds" como nome de hospede.
-
-  Para a incluir e preciso o nome do titular da reserva 59-5970070, que
-  podera vir do folio 140940 no PMS ou da propria reserva no extranet
-  Hotelbeds. Assim que o indicar, gera-se um CSV adicional so com esta
-  fatura, ou regenera-se o lote completo.
-
-  No registo ficou com estado 'held' para nao se perder de vista.
+FATURA 142030 - NOME DE HOSPEDE SUPRIDO MANUALMENTE
+  Nas observacoes do InvoiceXpress esta fatura trazia no campo Customer o nome
+  da propria agencia em vez do nome do hospede. Foi por isso retida numa
+  primeira versao deste lote, que nunca chegou a ser carregada.
+  O utilizador confirmou o hospede: HEEKYUNG CHOI. A fatura passa a integrar o
+  lote com esse nome no campo Costumer Name.
+  Convem corrigir tambem a observacao no InvoiceXpress, para o proximo lote
+  nao voltar a parar na mesma fatura.
 
 CONTINUIDADE COM O LOTE ANTERIOR
-  O lote anterior cobriu 14-08 a 17-08. Este comeca em 18-08, sem
-  sobreposicao nem buraco. A consulta arrancou em 17-08 para reverificar a
-  fronteira: a unica fatura Hotelbeds desse dia e a 141983, ja incluida no
-  lote anterior, e o registo confirmou-o.
+  O lote anterior cobriu 14-08 a 17-08. Este comeca em 18-08, sem sobreposicao
+  nem buraco. A consulta arrancou em 17-08 para reverificar a fronteira: a
+  unica fatura Hotelbeds desse dia e a 141983, ja no lote anterior.
   Nao existem faturas Hotelbeds emitidas a 27-08.
-
-  ATENCAO: continuam por submeter os lotes 07-08/13-08 (11 faturas,
-  EUR 1.635,11) e 14-08/17-08 (7 faturas, EUR 1.200,37), ambos 'prepared'.
+  Todos os lotes anteriores estao dados como carregados no portal.
 
 FORMATO DO CSV
   Sem cabecalho | 16 colunas | separador ';' | decimal ',' | datas dd-mm-yyyy
   UTF-8 SEM BOM | valores com IVA incluido
 
 VALIDACOES
-  [OK] 41/41 linhas com 16 colunas
+  [OK] 43/43 linhas com 16 colunas
   [OK] Ficheiro gravado sem BOM (verificado ao nivel dos bytes)
-  [OK] sum(Line total) == Invoice total nas 27 faturas exportadas
+  [OK] sum(Line total) == Invoice total nas 28 faturas
   [OK] Invoice type = F em todas (sem notas de credito no periodo)
   [OK] N. to rectify vazio em todas
-  [OK] Costumer Name = nome do hospede em todas as 27 exportadas
+  [OK] Costumer Name = nome do hospede em todas as 28
   [OK] Booking N. extraido das observacoes (nenhum inventado)
   [OK] Apenas linhas "Quartos - ..." exportadas
   [OK] Services Description = Accommodation | N. Days/Nights = 1 | Quantity = 1
@@ -63,12 +47,12 @@ VALIDACOES
 
 REGRA DE DATAS HOTELBEDS (erro 110004)
   Check-out = Service Date + N. Days/Nights; exige Invoice date >= check-out
-  mais tardio. Verificadas as 27 faturas: nenhuma exigiu correcao.
+  mais tardio. Verificadas as 28 faturas: nenhuma exigiu correcao.
 
 ARREDONDAMENTOS (bruto = liquido InvoiceXpress x 1,06)
-  Seis faturas levaram acerto de um centimo na ultima linha:
-    142762 +0,01 | 142760 -0,01 | 142629 -0,01
-    142538 +0,01 | 142480 -0,01 | 142472 -0,01
+  Sete faturas levaram acerto de um centimo na ultima linha:
+    142762 +0,01 | 142760 -0,01 | 142629 -0,01 | 142538 +0,01
+    142480 -0,01 | 142472 -0,01 | 142030 +0,01
   Restantes 21 faturas fecharam exatamente sem ajuste.
 
 LINHAS QUE PARECEM REPETIDAS MAS NAO SAO
@@ -82,10 +66,11 @@ LINHAS QUE PARECEM REPETIDAS MAS NAO SAO
 
 LINHAS COM DATAS ANTERIORES AO INTERVALO
   Varias faturas incluem noites de 16 e 17-08, anteriores ao inicio do
-  intervalo, por o filtro incidir sobre a data de EMISSAO. Essas noites
-  nunca foram exportadas em lote anterior.
+  intervalo, por o filtro incidir sobre a data de EMISSAO. Essas noites nunca
+  foram exportadas em lote anterior.
 
 ESTATISTICAS POR DATA DE EMISSAO
+  18-08-2026: 1 fatura(s) - EUR 253,85
   19-08-2026: 3 fatura(s) - EUR 489,04
   20-08-2026: 2 fatura(s) - EUR 209,60
   21-08-2026: 1 fatura(s) - EUR 86,64
@@ -98,13 +83,12 @@ ESTATISTICAS POR DATA DE EMISSAO
   29-08-2026: 2 fatura(s) - EUR 185,44
   30-08-2026: 3 fatura(s) - EUR 602,45
   31-08-2026: 4 fatura(s) - EUR 366,32
-  TOTAL EXPORTADO: EUR 4.720,19
-  (+ EUR 253,85 retidos na fatura 142030 = EUR 4.974,04 no intervalo)
+  TOTAL: EUR 4.974,04
 
 FICHEIRO A CARREGAR
   hotelbeds_18-08_31-08_COM_IVA.csv
 
 ESTADO NO REGISTO
-  As 27 faturas exportadas ficam 'prepared'; a 142030 fica 'held'.
-  So passar a 'uploaded' apos confirmacao do portal.
+  As 28 faturas ficam 'prepared'. So passar a 'uploaded' apos confirmacao do
+  portal. Se rejeitado, registar 'rejected' com a causa.
 ================================================================================
