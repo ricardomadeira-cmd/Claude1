@@ -1,0 +1,145 @@
+================================================================================
+HOTELBEDS - FICHEIRO DE PAGAMENTOS - RELATORIO DE VALIDACAO
+================================================================================
+Gerado em: 07-10-2026 15:15:50
+PERIODO DE EMISSAO: 17-09-2026 a 07-10-2026
+
+RESUMO
+  Documentos Hotelbeds encontrados no intervalo: 67
+    66 faturas + 1 nota de credito
+  Faturas exportadas: 65
+  Linhas de alojamento (uma por noite/quarto): 110
+  Total bruto c/IVA exportado: EUR 14.573,70
+  Excluidos do lote: 2 documentos (ver seccao propria)
+  Nao-Hotelbeds excluidas do intervalo: 32
+
+  E o maior lote ate agora, em faturas e em valor.
+
+>>> PRIMEIRA NOTA DE CREDITO DESDE QUE ESTES LOTES COMECARAM <<<
+  A fatura 144749 (01-10, EUR 119,32, hospede "Tang Jun", reserva 59-6021840,
+  noite de 30-09) foi anulada integralmente pela nota de credito 4086, emitida
+  no mesmo dia e com o mesmo valor. O campo owner_invoice_id da nota aponta
+  para a 144749, o que confirma a ligacao. A fatura foi depois reemitida como
+  144750, mesma reserva, mesma noite, mesmo valor, com o nome do hospede
+  corrigido para "JUN TANG". Foi, portanto, uma correcao da ordem do nome.
+
+  DECISAO TOMADA: exportar apenas a 144750 e deixar de fora a 144749 e a nota
+  de credito 4086. Fundamento:
+   - a 144749 esta integralmente anulada (to_pay = 0) e o procedimento manda
+     excluir documentos anulados;
+   - a nota 4086 nao traz referencia de reserva Hotelbeds nas observacoes,
+     pelo que nao poderia levar um Booking N. valido no CSV;
+   - nenhum dos dois chegou a ser submetido ao portal, logo nao ha nada a
+     reverter la;
+   - o valor liquido devido pela reserva mantem-se EUR 119,32, through a 144750.
+
+  ALTERNATIVA, SE O PORTAL O EXIGIR: exportar os tres documentos, a 144749 e a
+  144750 como F e a 4086 como FR com N. to rectify = 144749. O procedimento
+  preve esse formato. Nao foi essa a opcao por acrescentar duas linhas que se
+  anulam e aumentar a superficie de rejeicao sem alterar o valor. Basta dizer
+  e o lote e regenerado nesse formato.
+
+  Ambos ficam no registo, com estado 'annulled' e 'credit_note', para nao
+  deixarem lacuna na sequencia de numeros.
+
+CONTINUIDADE COM O LOTE ANTERIOR
+  O lote anterior cobriu 01-09 a 16-09. Este comeca em 17-09, sem sobreposicao
+  nem buraco. A consulta arrancou em 16-09 para reverificar a fronteira: a
+  unica fatura Hotelbeds desse dia e a 143816, ja no lote anterior.
+  Nao existem faturas Hotelbeds emitidas a 05-10.
+
+  ATENCAO: continuam por submeter os lotes 18-08/31-08 (28 faturas,
+  EUR 4.974,04) e 01-09/16-09 (40 faturas, EUR 11.869,98), ambos 'prepared'.
+  Com este, sao tres ficheiros distintos a aguardar carregamento.
+
+FORMATO DO CSV
+  Sem cabecalho | 16 colunas | separador ';' | decimal ',' | datas dd-mm-yyyy
+  UTF-8 SEM BOM | valores com IVA incluido
+
+VALIDACOES
+  [OK] 110/110 linhas com 16 colunas
+  [OK] Ficheiro gravado sem BOM (verificado ao nivel dos bytes)
+  [OK] sum(Line total) == Invoice total nas 65 faturas
+  [OK] Invoice type = F em todas as exportadas
+  [OK] N. to rectify vazio em todas
+  [OK] Costumer Name = nome do hospede em todas as 65
+  [OK] Booking N. extraido das observacoes (nenhum inventado)
+  [OK] Apenas linhas "Quartos - ..." exportadas
+  [OK] Services Description = Accommodation | N. Days/Nights = 1 | Quantity = 1
+  [OK] Tax = 6 | Tax Type = VAT | Currency = EUR
+  [OK] Verificada a nao-truncagem da consulta: o intervalo foi varrido em duas
+       metades e a soma das duas confere com a consulta unica (35 + 32 = 67)
+
+REGRA DE DATAS HOTELBEDS (erro 110004)
+  Check-out = Service Date + N. Days/Nights; exige Invoice date >= check-out
+  mais tardio. Verificadas as 65 faturas: nenhuma exigiu correcao.
+
+ARREDONDAMENTOS (bruto = liquido InvoiceXpress x 1,06)
+  Vinte faturas levaram acerto na ultima linha, todas ao nivel do centimo:
+    145084 +0,01 | 145027 -0,01 | 144892 +0,01 | 144891 -0,01
+    144889 -0,01 | 144826 -0,01 | 144655 +0,01 | 144654 +0,01
+    144597 +0,01 | 144596 -0,01 | 144530 +0,01 | 144529 +0,01
+    144474 -0,01 | 144407 +0,01 | 144342 +0,02 | 144297 -0,01
+    144192 +0,01 | 144005 +0,01 | 144004 +0,01 | 144003 +0,01
+  O desvio de 2 centimos (144342) vem de somar quatro arredondamentos ao mesmo
+  preco, nao de divergencia de valores.
+  Restantes 45 faturas fecharam exatamente sem ajuste.
+
+DUAS FATURAS COM O MESMO HOSPEDE E A MESMA RESERVA
+  144530 e 144529 sao ambas de MARY FRANCES HAMMER, reserva 59-5924157, com
+  as mesmas tres noites (25 a 27-09) e o mesmo valor (EUR 380,77). Nao e
+  duplicacao: sao dois quartos distintos, 108 e 106, faturados em separado.
+  Confirmado no detalhe das linhas do InvoiceXpress.
+
+TRES FATURAS DO MESMO FOLIO COM HOSPEDES DIFERENTES
+  144072, 144071 e 144070 partilham o folio 135616 e a reserva 59-5750746,
+  com hospedes diferentes (Juergen Hentschel, Gertraud Schweiger e Karl
+  Wilfinger) em quartos 213, 208 e 212, na mesma noite de 19-09 e ao mesmo
+  preco. E um grupo, nao um erro.
+  O mesmo padrao em 144896 e 144895 (folio 142968, reserva 59-6046999).
+
+ESTADIAS LONGAS DESTE LOTE
+  144474: 4 noites no quarto 404, EUR 719,99
+  145084: 6 linhas = 2 quartos x 3 noites, EUR 676,39
+  144342: 4 linhas = 2 quartos x 2 noites, EUR 446,90
+  144246: 4 linhas = 2 quartos x 2 noites, EUR 462,08
+
+LINHA SEM NUMERO DE QUARTO NO INVOICEXPRESS
+  144750, noite de 30-09: a descricao termina em hifen, sem o numero do
+  quarto. Nao afeta o CSV, que nao tem coluna de quarto.
+
+LINHAS COM DATAS ANTERIORES AO INTERVALO
+  Varias faturas incluem noites de 16-09, anteriores ao inicio do intervalo,
+  por o filtro incidir sobre a data de EMISSAO. Essas noites nunca foram
+  exportadas em lote anterior.
+
+ESTATISTICAS POR DATA DE EMISSAO
+  17-09-2026: 2 fatura(s) - EUR 227,80
+  18-09-2026: 1 fatura(s) - EUR 117,60
+  19-09-2026: 5 fatura(s) - EUR 1241,10
+  20-09-2026: 5 fatura(s) - EUR 760,80
+  21-09-2026: 3 fatura(s) - EUR 512,64
+  22-09-2026: 3 fatura(s) - EUR 700,73
+  23-09-2026: 4 fatura(s) - EUR 901,36
+  24-09-2026: 4 fatura(s) - EUR 962,01
+  25-09-2026: 4 fatura(s) - EUR 957,50
+  26-09-2026: 4 fatura(s) - EUR 784,61
+  27-09-2026: 3 fatura(s) - EUR 1070,35
+  28-09-2026: 4 fatura(s) - EUR 1060,74
+  29-09-2026: 2 fatura(s) - EUR 637,06
+  30-09-2026: 2 fatura(s) - EUR 477,30
+  01-10-2026: 3 fatura(s) - EUR 341,44
+  02-10-2026: 4 fatura(s) - EUR 591,52
+  03-10-2026: 1 fatura(s) - EUR 352,79
+  04-10-2026: 8 fatura(s) - EUR 1674,03
+  06-10-2026: 2 fatura(s) - EUR 525,93
+  07-10-2026: 1 fatura(s) - EUR 676,39
+  TOTAL: EUR 14.573,70
+
+FICHEIRO A CARREGAR
+  hotelbeds_17-09_07-10_COM_IVA.csv
+
+ESTADO NO REGISTO
+  As 65 faturas ficam 'prepared'. So passar a 'uploaded' apos confirmacao do
+  portal. Se rejeitado, registar 'rejected' com a causa.
+================================================================================
