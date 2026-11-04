@@ -1,0 +1,214 @@
+==============================================================================
+HOTELBEDS - RELATORIO DE VALIDACAO DO LOTE 08-10 a 04-11 (2026)
+Hotel Oslo, Lda - Coimbra | Cliente: HotelBeds Spain, S.L.U. (NIF B-28916765)
+Gerado em: 04-11-2026 15:12:21 UTC
+==============================================================================
+
+1. AMBITO
+------------------------------------------------------------------------------
+   Periodo de EMISSAO das faturas: 08-10-2026 a 04-11-2026
+   (continua o lote anterior, que terminou em 07-10-2026 com a fatura 145084)
+   Faturas Hotelbeds no lote ....... 92
+   Linhas no CSV (1 por noite) ..... 184
+   Valor total c/IVA ,,,,,,,,,,,,,,, 22.419,02 EUR
+   Notas de credito Hotelbeds ...... 0 (nenhuma emitida no periodo)
+
+2. COMO FOI APURADO O UNIVERSO (3 vias independentes)
+------------------------------------------------------------------------------
+   a) Varrimento 08-10 -> 20-10 ................ 64 faturas Hotelbeds
+   b) Varrimento 21-10 -> 04-11 ................ 28 faturas Hotelbeds
+   c) Varrimento unico 08-10 -> 04-11 .......... 92 faturas / 22.419,02 EUR
+      -> as tres vias concordam: 64 + 28 = 92. Sem truncagem (1 pagina).
+   d) Verificacao pelo proprio cliente no InvoiceXpress: as 10 faturas
+      Hotelbeds mais recentes coincidem, pela mesma ordem, com o lote.
+   e) Consulta especifica de notas de credito no periodo: 0 resultados.
+
+3. CONTINUIDADE COM O LOTE ANTERIOR
+------------------------------------------------------------------------------
+   A consulta foi feita a partir de 07-10 (um dia antes) e devolveu apenas
+   a fatura 145084, que JA integrou o lote 17-09/07-10. Nao ha lacuna nem
+   sobreposicao entre os dois lotes.
+
+4. REGRAS APLICADAS (formato do portal Hotelbeds)
+------------------------------------------------------------------------------
+   - 16 colunas, separador ';', decimal ',', datas dd-mm-aaaa
+   - UTF-8 SEM BOM, sem linha de cabecalho
+   - Uma linha por noite/quarto; Nº Days/Nights = 1; Quantity = 1
+   - Valores COM IVA incluido (Unit price, Line total, Invoice total)
+   - IVA 6% (categoria RED), Tax Type = VAT, Moeda EUR
+   - Invoice type = F (nenhuma nota de credito neste lote)
+   - Costumer Name = nome do hospede (nunca 'Hotelbeds')
+   - Apenas linhas de alojamento ('Quartos'); Services Description = Accommodation
+
+5. VERIFICACOES AUTOMATICAS AO FICHEIRO JA ESCRITO
+------------------------------------------------------------------------------
+   [OK] Todas as linhas tem exactamente 16 colunas .......... 184/184
+   [OK] Ficheiro gravado em UTF-8 SEM BOM (verificado ao byte)
+   [OK] soma(Line total) == Invoice total em todas as faturas  92/92
+   [OK] Soma dos Invoice total = 22.419,02 EUR. igual ao Invoice.press
+   [OK] Nenhum documento anulado, rascunho ou de outro cliente incluido
+
+6. AJUSTES DE ARREDONDAMENTO (1 centimo)
+------------------------------------------------------------------------------
+   O InvoiceXpress guarda os valores SEM IVA. O portal exige valores COM
+   IVA, por isso calcula-se liquido x 1,06 e arredonda-se cada noite. Quando
+   a soma das noites difere do total da fatura em 1 ou poucos centimos, a
+   diferenca e lancada na ULTIMA linha, para que soma == total.
+   Faturas com ajuste: 49 de 92
+      145139: 0,01 EUR
+      145140: -0,01 EUR
+      145141: -0,01 EUR
+      145143: -0,01 EUR
+      145200: 0,04 EUR
+      145201: -0,01 EUR
+      145202: -0,01 EUR
+      145280: 0,01 EUR
+      145281: 0,01 EUR
+      145282: -0,01 EUR
+      145283: 0,01 EUR
+      145344: -0,01 EUR
+      145403: 0,01 EUR
+      145404: 0,01 EUR
+      145406: 0,01 EUR
+      145471: -0,01 EUR
+      145528: 0,01 EUR
+      145628: 0,01 EUR
+      145629: 0,01 EUR
+      145630: 0,01 EUR
+      145632: 0,01 EUR
+      145633: -0,01 EUR
+      145635: 0,01 EUR
+      145714: -0,01 EUR
+      145715: 0,01 EUR
+      145716: 0,01 EUR
+      145717: 0,01 EUR
+      145718: 0,01 EUR
+      145775: 0,01 EUR
+      145777: 0,01 EUR
+      145778: 0,01 EUR
+      145779: 0,01 EUR
+      145780: 0,01 EUR
+      145781: 0,01 EUR
+      145854: 0,01 EUR
+      145855: 0,01 EUR
+      145915: -0,01 EUR
+      145988: 0,01 EUR
+      146058: -0,01 EUR
+      146114: 0,01 EUR
+      146184: 0,01 EUR
+      146187: 0,01 EUR
+      146251: -0,01 EUR
+      146428: 0,01 EUR
+      146501: 0,01 EUR
+      146549: 0,01 EUR
+      146607: -0,01 EUR
+      146736: -0,01 EUR
+      146737: 0,01 EUR
+   Estes ajustes estao assinalados a amarelo no Excel de verificacao.
+
+7. DATAS DE FATURA (regra do erro 110004)
+------------------------------------------------------------------------------
+   O portal rejeita faturas cuja data seja anterior ao check-out. Verificou-se
+   check-out = ultima noite + 1 dia para todas as 92 faturas.
+   Faturas que precisaram de correccao de data: 0 (nenhuma).
+   Todas as datas de emissao sao iguais ou posteriores ao check-out.
+
+8. PARECE DUPLICADO MAS NAO E
+------------------------------------------------------------------------------
+   Pontos que chamam a atencao numa revisao rapida, todos legitimos:
+
+   8.1 Reserva de grupo 59-5960457 (folio 140713) - 5 faturas distintas
+       145776 JOHANN FASCHING ........ 215,84 (quarto 206)
+       145777 GERFRIED ROM ........... 212,81 (quarto 203)
+       145778 WOLFGANG HARNISCH ...... 212,81 (quarto 208)
+       145779 PETER FICKER .......... 212,81 (quarto 204)
+       145780 FRANZ MICHAEL GERDL ... 212,81 (quarto 207)
+       Mesmo booking e mesmo folio, cinco hospedes em cinco quartos.
+       Quatro tem o mesmo valor: e o mesmo preco por noite, nao uma copia.
+
+   8.2 Reserva 59-6059703 (folio 143285) - 2 faturas de 96,52 EUR
+       146311 CLAUDIA FERNANDES (quarto 303) e 146312 RUTE SOFIA DE SOUSA
+       MARTINS (quarto 304). Mesmo preco, quartos e hospedes diferentes.
+
+   8.3 Faturas com varias linhas na MESMA noite (quartos diferentes)
+       145403 (11-10: quartos 106 e 107)
+       145635 (15-10: quartos 110 e 106)
+       145714 (16-10: quartos 309, 308 e 407)
+       146184 (23-10: quartos 210 e 209)
+       146185 (23-10: quartos 408 e 304)
+       146607 (30-10: quartos 207, 208 e 303)
+       Nao sao noites repetidas: sao quartos distintos na mesma data.
+
+   8.4 Noites anteriores a 08-10 em faturas DENTRO do lote
+       O filtro e a data de EMISSAO, nao a da estadia. Ha noites de Outubro
+       antes de 08-10 em 11 faturas (noite mais antiga: 06-10-2026).
+       Exemplos: 145139/145140/145141/145142/145143 (noites de 06-10 e 07-10),
+       145283 (noites de 06-10 a 09-10), 145200/145201/145202 (07-10).
+       Estas noites NAO foram carregadas em lotes anteriores, porque os lotes
+       sao definidos pela data de emissao da fatura.
+
+   8.5 Estadia longa - 146249 MAURO ALEXANDRE VIEIRA NIN
+       10 noites seguidas (15-10 a 24-10) no quarto 201, a 105,64 EUR cada,
+       total 1.056,40 EUR. E a fatura mais alta do lote. Nao e duplicacao.
+
+   8.6 Fatura 145200 - NATACHA RODRIGUES SILVA, 1.345,25 EUR
+       10 linhas: quartos 311, 309, 308 e 310 em duas noites (07-10 e 08-10),
+       mais uma noite de 07-10 sem nº de quarto e o quarto 301 em 08-10.
+
+9. PONTOS A CONFIRMAR PELO UTILIZADOR
+------------------------------------------------------------------------------
+   9.1 Tres linhas de alojamento NAO trazem numero de quarto no InvoiceXpress
+       (o campo tem a data e o quarto vazio, ex. '07/10/2026-'):
+          fatura 145200, noite 2026-10-07
+          fatura 145578, noite 2026-10-13
+          fatura 145631, noite 2026-10-14
+       Isto NAO afecta o CSV: o formato do portal nao tem coluna de quarto.
+       Afecta apenas a leitura do Excel, onde aparecem como '(sem nº)'.
+       Vale a pena corrigir no PMS/InvoiceXpress para o futuro.
+
+   9.2 O lote 17-09/07-10 (65 faturas) continua marcado como 'prepared' no
+       registo. Em 07-10 ficou dito que a Lurdes o submeteria, mas nunca
+       chegou confirmacao. Se ja foi carregado, convem confirmar para o
+       registo passar a 'uploaded' e nao haver duvida de duplicacao.
+
+10. FICHEIROS DESTE LOTE
+------------------------------------------------------------------------------
+   hotelbeds_08-10_04-11_COM_IVA.csv ....... carregar no portal Hotelbeds
+   hotelbeds_08-10_04-11_revisao.xlsx ...... verificacao humana (2 folhas)
+   hotelbeds_08-10_04-11_VALIDACAO.txt ..... este relatorio
+   hotelbeds_upload_registry.csv ............ registo anti-duplicacao
+
+11. DISTRIBUICAO POR DIA DE EMISSAO
+------------------------------------------------------------------------------
+   08-10-2026 ....  6 fatura(s)
+   09-10-2026 .... 11 fatura(s)
+   10-10-2026 ....  4 fatura(s)
+   11-10-2026 ....  2 fatura(s)
+   12-10-2026 ....  6 fatura(s)
+   13-10-2026 ....  4 fatura(s)
+   14-10-2026 ....  2 fatura(s)
+   15-10-2026 ....  2 fatura(s)
+   16-10-2026 ....  9 fatura(s)
+   17-10-2026 ....  5 fatura(s)
+   18-10-2026 ....  8 fatura(s)
+   19-10-2026 ....  2 fatura(s)
+   20-10-2026 ....  3 fatura(s)
+   21-10-2026 ....  1 fatura(s)
+   22-10-2026 ....  3 fatura(s)
+   23-10-2026 ....  3 fatura(s)
+   24-10-2026 ....  3 fatura(s)
+   25-10-2026 ....  3 fatura(s)
+   26-10-2026 ....  3 fatura(s)
+   27-10-2026 ....  2 fatura(s)
+   28-10-2026 ....  4 fatura(s)
+   29-10-2026 ....  1 fatura(s)
+   30-10-2026 ....  1 fatura(s)
+   31-10-2026 ....  1 fatura(s)
+   02-11-2026 ....  2 fatura(s)
+   04-11-2026 ....  1 fatura(s)
+   Dias sem faturas Hotelbeds no periodo: 01-11 e 03-11.
+
+==============================================================================
+CONCLUSAO: lote pronto a carregar. Nenhum erro bloqueante detectado.
+Depois do carregamento, confirmar para o registo passar a 'uploaded'.
+==============================================================================
