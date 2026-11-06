@@ -388,3 +388,5 @@ event_timestamp;invoice_number;invoicexpress_id;booking_number;original_invoice_
 2026-11-04T15:12:38;146736;275340926;59-6079766;2026-11-02;2026-11-02;370.11;2026-10-08;2026-11-04;hotelbeds_08-10_04-11_COM_IVA.csv;prepared;"Lote 08-10/04-11; aguarda confirmacao de carregamento"
 2026-11-04T15:12:38;146737;275343574;59-6082457;2026-11-02;2026-11-02;158.09;2026-10-08;2026-11-04;hotelbeds_08-10_04-11_COM_IVA.csv;prepared;"Lote 08-10/04-11; aguarda confirmacao de carregamento"
 2026-11-04T15:12:38;146843;275676439;59-6089965;2026-11-04;2026-11-04;83.60;2026-10-08;2026-11-04;hotelbeds_08-10_04-11_COM_IVA.csv;prepared;"Lote 08-10/04-11; aguarda confirmacao de carregamento"
+2026-11-06T15:35:41;145405;273375133;59-6032879;2026-10-12;2026-10-12;109.60;2026-10-08;2026-11-04;hotelbeds_08-10_04-11_COM_IVA.csv;removed;"Folio 142608; retirada do lote a pedido do utilizador; NAO carregada; anula a linha prepared anterior"
+2026-11-06T15:35:41;145773;273974173;59-5857323;2026-10-18;2026-10-18;117.60;2026-10-08;2026-11-04;hotelbeds_08-10_04-11_COM_IVA.csv;removed;"Folio 138210; retirada do lote a pedido do utilizador; NAO carregada; anula a linha prepared anterior"
