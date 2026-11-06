@@ -2,7 +2,7 @@
 HOTELBEDS - RELATORIO DE VALIDACAO DO LOTE 08-10 a 04-11 (2026)
 Hotel Oslo, Lda - Coimbra | Cliente: HotelBeds Spain, S.L.U. (NIF B-28916765)
 Gerado em: 06-11-2026 15:35:29 UTC
-VERSAO 2 - refeito sem as faturas dos folios 138210 e 142608
+VERSAO 3 - sem os folios 138210 e 142608, excluidos em definitivo
 ==============================================================================
 
 1. AMBITO
@@ -14,7 +14,7 @@ VERSAO 2 - refeito sem as faturas dos folios 138210 e 142608
    Valor total c/IVA ............... 22.191,82 EUR
    Notas de credito Hotelbeds ...... 0 (nenhuma emitida no periodo)
 
-2. FATURAS REMOVIDAS A PEDIDO DO UTILIZADOR
+2. FATURAS EXCLUIDAS EM DEFINITIVO (decisao do utilizador)
 ------------------------------------------------------------------------------
    Pedido: refazer os ficheiros sem as faturas dos folios 138210 e 142608.
    Removidas 2 faturas, 2 linhas, 227,20 EUR:
@@ -37,11 +37,20 @@ VERSAO 2 - refeito sem as faturas dos folios 138210 e 142608
    De 92 faturas / 22.419,02 EUR passou-se a 90 faturas / 22.191,82 EUR.
    Confirmacao aritmetica: 22.419,02 - 109,60 - 117,60 = 22.191,82 EUR.
 
-   ATENCAO: estas duas faturas NAO foram carregadas no portal. Ficaram
-   assinaladas no registo anti-duplicacao como removidas deste lote. Se
-   mais tarde tiverem de ser carregadas, tem de ser incluidas de proposito
-   num lote - nenhum varrimento futuro as vai apanhar, porque os lotes
-   seguintes comecam depois de 04-11.
+   DESTINO: por decisao do utilizador, estas duas faturas estao EXCLUIDAS
+   EM DEFINITIVO. NAO foram carregadas no portal e NAO devem ser carregadas,
+   nem incluidas em nenhum lote futuro.
+
+   No registo anti-duplicacao ficam com o estado final 'excluded_final'. O
+   registo e append-only, pelo que o percurso de cada uma fica visivel:
+      prepared -> removed -> excluded_final
+   Lido pelo ultimo estado de cada fatura, o lote 08-10/04-11 tem 90 faturas
+   em 'prepared' e estas 2 em 'excluded_final'.
+
+   Mesmo sem esta marcacao nenhum varrimento futuro as apanharia, porque os
+   lotes seguintes comecam depois de 04-11. A marcacao serve para que, se
+   alguem reparar na falta dos numeros 145405 e 145773 na sequencia, o registo
+   responda logo porque nao foram carregadas.
 
 3. COMO FOI APURADO O UNIVERSO (3 vias independentes)
 ------------------------------------------------------------------------------
@@ -205,9 +214,9 @@ VERSAO 2 - refeito sem as faturas dos folios 138210 e 142608
         chegou confirmacao. Se ja foi carregado, convem confirmar para o
         registo passar a 'uploaded' e nao haver duvida de duplicacao.
 
-   10.3 Destino das duas faturas removidas (145405 e 145773): se nao forem
-        para carregar nunca, convem dizer, para o registo as marcar em
-        definitivo e ninguem voltar a procura-las.
+   10.3 RESOLVIDO. O destino das faturas 145405 e 145773 ficou decidido:
+        excluidas em definitivo, nunca a carregar. Ja estao marcadas como
+        'excluded_final' no registo. Ver ponto 2.
 
 11. FICHEIROS DESTE LOTE
 ------------------------------------------------------------------------------
