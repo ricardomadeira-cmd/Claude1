@@ -2,7 +2,7 @@
 HOTELBEDS - RELATORIO DE VALIDACAO DO LOTE 08-10 a 04-11 (2026)
 Hotel Oslo, Lda - Coimbra | Cliente: HotelBeds Spain, S.L.U. (NIF B-28916765)
 Gerado em: 06-11-2026 15:35:29 UTC
-VERSAO 3 - sem os folios 138210 e 142608, excluidos em definitivo
+VERSAO 4 - lote confirmado no portal (ver secao 13)
 ==============================================================================
 
 1. AMBITO
@@ -258,8 +258,53 @@ VERSAO 3 - sem os folios 138210 e 142608, excluidos em definitivo
    Dias sem faturas Hotelbeds no periodo: 01-11 e 03-11.
    (12-10 e 18-10 perderam uma fatura cada, por causa das duas remocoes.)
 
+13. RESULTADO DO CARREGAMENTO NO PORTAL (07-11-2026)
+------------------------------------------------------------------------------
+   Ficheiro submetido: "hotelbeds_08-10_04-11_COM_IVA (1).csv"
+   Emission: Sat Nov 07 14:42:36 CET 2026 | Processed: 0
+   Resultado: 182 erros, todos com o MESMO codigo.
+
+      Codigo 110006 - "Factura ja existem (501970290/<numero>/2026)"
+      182 de 182 linhas, no passo Validation.
+
+   LEITURA: isto NAO e um erro do ficheiro. O codigo 110006 diz que o portal
+   JA TEM estas faturas. Nenhuma linha passou a validacao e Processed=0, ou
+   seja, NADA foi carregado nesta tentativa - e portanto nada foi carregado
+   em duplicado. O portal protegeu-se a si mesmo.
+
+   VERIFICACAO DA CORRESPONDENCIA (feita linha a linha):
+      - 182 erros para as 182 linhas do CSV, um por linha
+      - o "Fila N" de cada erro bate com a linha N do nosso CSV e com o
+        mesmo numero de fatura, nas 182 linhas
+      - 90 faturas distintas nos erros = as 90 faturas do CSV, sem sobras
+        de um lado nem do outro
+      - as faturas excluidas em definitivo (145405 e 145773) NAO aparecem
+        nos erros, o que confirma que o ficheiro submetido foi a versao
+        final de 90 faturas e nao a versao inicial de 92
+      - valor das linhas rejeitadas: 22.191,82 EUR, o lote completo
+
+   PORQUE E QUE JA LA ESTAVAM - duas leituras possiveis:
+      a) o mesmo ficheiro ja tinha sido carregado com exito numa tentativa
+         anterior. O nome do ficheiro submetido termina em " (1)", o sufixo
+         que o browser acrescenta quando se descarrega o mesmo ficheiro duas
+         vezes, o que aponta para uma segunda submissao do mesmo ficheiro;
+      b) as faturas chegaram ao portal por outra via.
+   O erro 110006 prova que o portal as tem; nao diz quem as la pos nem quando.
+   Em qualquer das leituras a consequencia e a mesma: NAO voltar a submeter.
+
+   ESTADO NO REGISTO: as 90 faturas passaram a 'uploaded', com nota a dizer
+   que a confirmacao vem do erro 110006 nesta tentativa repetida e nao de um
+   recibo de carregamento com exito.
+
+   NOTA OPERACIONAL: se o Ricardo e a Lurdes puderem ambos carregar o mesmo
+   lote, isto repete-se. Vale a pena combinar quem submete cada lote. O risco
+   financeiro e nulo (o portal recusa duplicados), o custo e so o tempo
+   gasto a perceber o ficheiro de erros.
+
+   Resposta do portal guardada em:
+      hotelbeds_08-10_04-11_RESPOSTA_PORTAL_07-11.csv
+
 ==============================================================================
-CONCLUSAO: lote pronto a carregar, 90 faturas / 22.191,82 EUR.
-Nenhum erro bloqueante detectado.
-Depois do carregamento, confirmar para o registo passar a 'uploaded'.
+CONCLUSAO: lote FECHADO. As 90 faturas / 22.191,82 EUR estao confirmadas no
+portal pelo erro 110006 de 07-11-2026. Nada a corrigir e nada a resubmeter.
 ==============================================================================
